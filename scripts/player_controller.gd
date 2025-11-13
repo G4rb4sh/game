@@ -13,6 +13,8 @@ class_name Player
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var current_interactable: Node = null
+var current_dialogue_bubble: DialogueBubble3D = null
+var is_looking_at_bubble := false
 
 func _ready() -> void:
 	# Capturar el mouse
@@ -62,6 +64,9 @@ func _physics_process(delta: float) -> void:
 	# Detectar objeto interactuable
 	_check_interactable()
 
+	# Detectar burbuja de diálogo
+	_check_dialogue_bubble()
+
 func _check_interactable() -> void:
 	if interaction_raycast.is_colliding():
 		var collider = interaction_raycast.get_collider()
@@ -86,3 +91,45 @@ func _clear_interaction() -> void:
 	if current_interactable:
 		current_interactable = null
 		# TODO: Ocultar UI de interacción
+
+func _check_dialogue_bubble() -> void:
+	"""Detecta si el jugador está mirando una burbuja de diálogo"""
+	if interaction_raycast.is_colliding():
+		var collider = interaction_raycast.get_collider()
+
+		# Buscar DialogueBubble3D en el árbol del collider
+		var bubble = _find_dialogue_bubble(collider)
+
+		if bubble and bubble.visible:
+			if not is_looking_at_bubble:
+				is_looking_at_bubble = true
+				current_dialogue_bubble = bubble
+				bubble.set_looking_at(true)
+				# Liberar mouse para permitir clicks en las palabras
+				if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			return
+
+	# No está mirando ninguna burbuja
+	if is_looking_at_bubble:
+		is_looking_at_bubble = false
+		if current_dialogue_bubble:
+			current_dialogue_bubble.set_looking_at(false)
+			current_dialogue_bubble = null
+		# Volver a capturar mouse
+		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _find_dialogue_bubble(node: Node) -> DialogueBubble3D:
+	"""Busca un DialogueBubble3D en el árbol del nodo"""
+	var current = node
+	while current:
+		if current is DialogueBubble3D:
+			return current
+		# Buscar en hermanos y padre
+		if current.get_parent():
+			for sibling in current.get_parent().get_children():
+				if sibling is DialogueBubble3D:
+					return sibling
+		current = current.get_parent()
+	return null

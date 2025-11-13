@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://apartment001"]
+[gd_scene load_steps=13 format=3 uid="uid://apartment001"]
 
-[ext_resource type="Script" path="res://scripts/player_controller.gd" id="1"]
-[ext_resource type="PackedScene" uid="uid://bed001" path="res://scenes/home/bed.tscn" id="2"]
-[ext_resource type="PackedScene" uid="uid://dictionary001" path="res://scenes/home/dictionary.tscn" id="3"]
-[ext_resource type="PackedScene" uid="uid://neighbor001" path="res://scenes/home/neighbor_npc.tscn" id="4"]
+[ext_resource type="Script" path="res://scripts/apartment_scene.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/player_controller.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://bed001" path="res://scenes/home/bed.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://dictionary001" path="res://scenes/home/dictionary.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://neighbor001" path="res://scenes/home/neighbor_npc.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://dictionaryui001" path="res://scenes/ui/dictionary_ui.tscn" id="6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.5
@@ -33,6 +35,7 @@ ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.5
 
 [node name="Apartment" type="Node3D"]
+script = ExtResource("1")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1")
@@ -43,7 +46,7 @@ shadow_enabled = true
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("1")
+script = ExtResource("2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -87,14 +90,14 @@ mesh = SubResource("BoxMesh_wall")
 
 [node name="Furniture" type="Node3D" parent="."]
 
-[node name="Bed" parent="Furniture" instance=ExtResource("2")]
+[node name="Bed" parent="Furniture" instance=ExtResource("3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.3, -3)
 
 [node name="DeskPlaceholder" type="CSGBox3D" parent="Furniture"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.4, -3)
 size = Vector3(1.5, 0.8, 1)
 
-[node name="Dictionary" parent="Furniture" instance=ExtResource("3")]
+[node name="Dictionary" parent="Furniture" instance=ExtResource("4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.83, -3)
 
 [node name="BookshelfPlaceholder" type="CSGBox3D" parent="Furniture"]
@@ -103,5 +106,9 @@ size = Vector3(0.3, 2, 2)
 
 [node name="NPCs" type="Node3D" parent="."]
 
-[node name="Neighbor" parent="NPCs" instance=ExtResource("4")]
+[node name="Neighbor" parent="NPCs" instance=ExtResource("5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DictionaryUI" parent="UI" instance=ExtResource("6")]
