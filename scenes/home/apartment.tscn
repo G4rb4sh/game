@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dictionary001" path="res://scenes/home/dictionary.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://neighbor001" path="res://scenes/home/neighbor_npc.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://dictionaryui001" path="res://scenes/ui/dictionary_ui.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://hud001" path="res://scenes/ui/hud.tscn" id="7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.5
@@ -110,5 +111,7 @@ size = Vector3(0.3, 2, 2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("7")]
 
 [node name="DictionaryUI" parent="UI" instance=ExtResource("6")]

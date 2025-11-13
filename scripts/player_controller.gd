@@ -15,6 +15,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var current_interactable: Node = null
 var current_dialogue_bubble: DialogueBubble3D = null
 var is_looking_at_bubble := false
+var hud: HUD = null  # Referencia al HUD (se asigna desde la escena)
 
 func _ready() -> void:
 	# Capturar el mouse
@@ -84,13 +85,14 @@ func _try_interact() -> void:
 		current_interactable.interact(self)
 
 func _show_interaction_prompt(text: String) -> void:
-	# TODO: Mostrar UI con el texto de interacción
-	pass
+	if hud:
+		hud.show_interaction_prompt(text)
 
 func _clear_interaction() -> void:
 	if current_interactable:
 		current_interactable = null
-		# TODO: Ocultar UI de interacción
+		if hud:
+			hud.hide_interaction_prompt()
 
 func _check_dialogue_bubble() -> void:
 	"""Detecta si el jugador está mirando una burbuja de diálogo"""

@@ -6,6 +6,10 @@ class_name DialogueBubble3D
 
 signal word_clicked(word_data: Dictionary)
 signal bubble_closed()
+signal text_animation_finished()
+
+@export var typewriter_speed := 0.05  # Segundos por carácter
+@export var enable_typewriter := true
 
 @onready var sprite: Sprite3D = $Sprite3D
 @onready var sub_viewport: SubViewport = $SubViewport
@@ -15,6 +19,10 @@ signal bubble_closed()
 var is_looking_at := false
 var current_words: Array[Dictionary] = []  # [{text: "", category: "", key: ""}]
 var hovering_word_index := -1
+var is_animating := false
+var full_text := ""
+var current_char_index := 0
+var animation_timer := 0.0
 
 func _ready() -> void:
 	# Configurar el SubViewport
@@ -38,18 +46,61 @@ func _ready() -> void:
 
 func show_dialogue(text: String, word_mappings: Array[Dictionary] = []) -> void:
 	"""
-	Muestra el diálogo con palabras clickeables
+	Muestra el diálogo con palabras clickeables y animación typewriter
 	word_mappings: [{word: "りんご", category: "food", key: "apple"}, ...]
 	"""
 	current_words = word_mappings
 	visible = true
 
 	# Generar el texto con BBCode para palabras clickeables
-	var formatted_text = _format_text_with_links(text, word_mappings)
+	full_text = _format_text_with_links(text, word_mappings)
 	dialogue_text.clear()
-	dialogue_text.append_text(formatted_text)
+
+	if enable_typewriter:
+		# Iniciar animación typewriter
+		is_animating = true
+		current_char_index = 0
+		animation_timer = 0.0
+		set_process(true)
+	else:
+		# Mostrar todo el texto inmediatamente
+		dialogue_text.append_text(full_text)
+		is_animating = false
+
+func skip_animation() -> void:
+	"""Salta la animación y muestra todo el texto"""
+	if is_animating:
+		is_animating = false
+		current_char_index = full_text.length()
+		dialogue_text.clear()
+		dialogue_text.append_text(full_text)
+		text_animation_finished.emit()
+		set_process(false)
+
+func _process(delta: float) -> void:
+	if not is_animating:
+		return
+
+	animation_timer += delta
+
+	# Actualizar el texto cada typewriter_speed segundos
+	if animation_timer >= typewriter_speed:
+		animation_timer = 0.0
+		current_char_index += 1
+
+		if current_char_index <= full_text.length():
+			var partial_text = full_text.substr(0, current_char_index)
+			dialogue_text.clear()
+			dialogue_text.append_text(partial_text)
+		else:
+			# Animación completada
+			is_animating = false
+			text_animation_finished.emit()
+			set_process(false)
 
 func hide_bubble() -> void:
+	is_animating = false
+	set_process(false)
 	visible = false
 	bubble_closed.emit()
 

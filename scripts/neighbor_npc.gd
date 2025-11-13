@@ -50,8 +50,11 @@ func _on_interact(player: Player) -> void:
 		dialogue_started.emit(self)
 		current_dialogue_index = 0
 		_show_next_dialogue()
+	elif dialogue_bubble and dialogue_bubble.is_animating:
+		# Si está animando, saltar la animación
+		dialogue_bubble.skip_animation()
 	else:
-		# Si ya está hablando, avanzar al siguiente diálogo
+		# Si ya está hablando y la animación terminó, avanzar al siguiente diálogo
 		_show_next_dialogue()
 
 func _show_next_dialogue() -> void:
@@ -63,6 +66,10 @@ func _show_next_dialogue() -> void:
 		print("  %s: %s" % [npc_name, text])
 		dialogue_bubble.show_dialogue(text, words)
 		current_dialogue_index += 1
+
+		# Reproducir sonido
+		if AudioManager:
+			AudioManager.play_dialogue_advance()
 	else:
 		_end_dialogue()
 

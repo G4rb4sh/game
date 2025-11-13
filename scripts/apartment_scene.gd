@@ -4,12 +4,17 @@ extends Node3D
 ## Conecta todos los sistemas: NPCs, diccionario, objetos interactivos
 
 @onready var dictionary_ui: DictionaryUI = $UI/DictionaryUI
+@onready var hud: HUD = $UI/HUD
 @onready var neighbor: NeighborNPC = $NPCs/Neighbor
 @onready var dictionary_object: Dictionary3D = $Furniture/Dictionary
 @onready var bed: Bed = $Furniture/Bed
 @onready var player: Player = $Player
 
 func _ready() -> void:
+	# Conectar el HUD al jugador
+	if player and hud:
+		player.hud = hud
+
 	# Conectar señales del vecino
 	if neighbor:
 		neighbor.word_lookup_requested.connect(_on_word_lookup_requested)

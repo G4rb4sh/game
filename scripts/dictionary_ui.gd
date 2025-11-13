@@ -26,6 +26,10 @@ func open_dictionary(language_manager: LanguageManager) -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_populate_categories()
 
+	# Reproducir sonido
+	if AudioManager:
+		AudioManager.play_dictionary_open()
+
 func open_to_word(language_manager: LanguageManager, category: String, key: String) -> void:
 	open_dictionary(language_manager)
 	# Buscar y seleccionar la categoría
@@ -46,6 +50,10 @@ func close_dictionary() -> void:
 	visible = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	closed.emit()
+
+	# Reproducir sonido
+	if AudioManager:
+		AudioManager.play_dictionary_close()
 
 func _populate_categories() -> void:
 	category_list.clear()
@@ -76,6 +84,10 @@ func _populate_words() -> void:
 func _on_word_selected(index: int) -> void:
 	var key = word_list.get_item_metadata(index)
 	var word_data = language_data.categories[current_category][key]
+
+	# Reproducir sonido
+	if AudioManager:
+		AudioManager.play_ui_click()
 
 	word_detail.clear()
 	word_detail.push_font_size(24)
