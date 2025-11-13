@@ -1,0 +1,35 @@
+{
+  "language": "japanese",
+  "display_name": "Japonés",
+  "categories": {
+    "numbers": {
+      "0": {"word": "ゼロ", "romaji": "zero", "translation": "cero"},
+      "1": {"word": "いち", "romaji": "ichi", "translation": "uno"},
+      "2": {"word": "に", "romaji": "ni", "translation": "dos"},
+      "3": {"word": "さん", "romaji": "san", "translation": "tres"},
+      "4": {"word": "よん", "romaji": "yon", "translation": "cuatro"},
+      "5": {"word": "ご", "romaji": "go", "translation": "cinco"},
+      "10": {"word": "じゅう", "romaji": "juu", "translation": "diez"},
+      "100": {"word": "ひゃく", "romaji": "hyaku", "translation": "cien"},
+      "1000": {"word": "せん", "romaji": "sen", "translation": "mil"}
+    },
+    "greetings": {
+      "hello": {"word": "いらっしゃいませ", "romaji": "irasshaimase", "translation": "bienvenido (en tienda)"},
+      "thank_you": {"word": "ありがとうございます", "romaji": "arigatou gozaimasu", "translation": "muchas gracias"},
+      "please": {"word": "お願いします", "romaji": "onegaishimasu", "translation": "por favor"},
+      "sorry": {"word": "すみません", "romaji": "sumimasen", "translation": "disculpe/perdón"}
+    },
+    "food": {
+      "apple": {"word": "りんご", "romaji": "ringo", "translation": "manzana"},
+      "bread": {"word": "パン", "romaji": "pan", "translation": "pan"},
+      "water": {"word": "水", "romaji": "mizu", "translation": "agua"},
+      "rice": {"word": "ごはん", "romaji": "gohan", "translation": "arroz"},
+      "fish": {"word": "魚", "romaji": "sakana", "translation": "pescado"}
+    },
+    "questions": {
+      "how_much": {"word": "いくらですか", "romaji": "ikura desu ka", "translation": "¿cuánto cuesta?"},
+      "where": {"word": "どこですか", "romaji": "doko desu ka", "translation": "¿dónde está?"},
+      "what": {"word": "何ですか", "romaji": "nan desu ka", "translation": "¿qué es?"}
+    }
+  }
+}

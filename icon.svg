@@ -1,0 +1,6 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" fill="#478cbf"/>
+  <text x="64" y="70" font-family="Arial, sans-serif" font-size="48" fill="white" text-anchor="middle" font-weight="bold">LS</text>
+  <text x="64" y="100" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">Language</text>
+  <text x="64" y="115" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">Survival</text>
+</svg>

@@ -1,0 +1,42 @@
+{
+  "supermarket_products": [
+    {
+      "id": "apple",
+      "name_key": "food.apple",
+      "price": 150,
+      "category": "fruits",
+      "barcode": "4011"
+    },
+    {
+      "id": "bread",
+      "name_key": "food.bread",
+      "price": 200,
+      "category": "bakery",
+      "barcode": "4060"
+    },
+    {
+      "id": "water",
+      "name_key": "food.water",
+      "price": 100,
+      "category": "beverages",
+      "barcode": "4901"
+    },
+    {
+      "id": "rice",
+      "name_key": "food.rice",
+      "price": 500,
+      "category": "grains",
+      "barcode": "4902"
+    },
+    {
+      "id": "fish",
+      "name_key": "food.fish",
+      "price": 800,
+      "category": "seafood",
+      "barcode": "4903"
+    }
+  ],
+  "restaurant_menu": [],
+  "hotel_services": [],
+  "clothing_items": []
+}
