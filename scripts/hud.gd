@@ -7,12 +7,14 @@ class_name HUD
 @onready var day_label: Label = $MarginContainer/VBoxContainer/TopBar/TimeContainer/DayLabel
 @onready var rent_label: Label = $MarginContainer/VBoxContainer/TopBar/RentContainer/RentLabel
 @onready var interaction_label: Label = $MarginContainer/VBoxContainer/BottomBar/InteractionLabel
+@onready var crosshair: Control = $Crosshair
 
 var time_manager: TimeManager
 var money_manager: MoneyManager
 
 func _ready() -> void:
 	interaction_label.visible = false
+	crosshair.visible = true  # Mira siempre visible
 
 	# Esperar un frame para que GameManager esté listo
 	await get_tree().process_frame
@@ -59,9 +61,17 @@ func show_interaction_prompt(text: String) -> void:
 		interaction_label.text = text
 		interaction_label.visible = true
 
+	# Hacer crosshair más visible cuando hay interacción
+	if crosshair:
+		crosshair.modulate = Color(0, 1, 0)  # Verde
+
 func hide_interaction_prompt() -> void:
 	if interaction_label:
 		interaction_label.visible = false
+
+	# Volver crosshair a color normal
+	if crosshair:
+		crosshair.modulate = Color(1, 1, 1)  # Blanco
 
 func _on_money_changed(new_amount: int, _change: int) -> void:
 	_update_money_display(new_amount)
