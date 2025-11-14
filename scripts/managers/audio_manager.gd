@@ -1,5 +1,4 @@
 extends Node
-class_name AudioManager
 
 ## Gestor de audio del juego - Singleton (Autoload)
 
