@@ -19,7 +19,6 @@ var dialogue_lines: Array[Dictionary] = []
 var current_dialogue_index := 0
 
 func _ready() -> void:
-	super._ready()
 	interaction_text = "[E] Hablar con %s" % npc_name
 
 	# Configurar diálogos por defecto con palabras del diccionario
