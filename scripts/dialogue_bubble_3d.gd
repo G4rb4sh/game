@@ -8,7 +8,7 @@ signal word_clicked(word_data: Dictionary)
 signal bubble_closed()
 signal text_animation_finished()
 
-@export var typewriter_speed := 0.05  # Segundos por carácter
+@export var typewriter_speed := 0.03  # Segundos por carácter (más rápido)
 @export var enable_typewriter := true
 
 @onready var sprite: Sprite3D = $Sprite3D
