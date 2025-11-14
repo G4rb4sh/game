@@ -34,7 +34,7 @@ func _ready() -> void:
 	sprite.texture = sub_viewport.get_texture()
 	sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	sprite.shaded = false
-	sprite.pixel_size = 0.004  # Aumentado para que sea más grande
+	sprite.pixel_size = 0.006  # Tamaño ajustado
 
 	# Configurar el texto
 	dialogue_text.bbcode_enabled = true
