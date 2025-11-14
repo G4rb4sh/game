@@ -17,7 +17,7 @@ signal text_animation_finished()
 @onready var dialogue_text: RichTextLabel = $SubViewport/DialoguePanel/MarginContainer/DialogueText
 
 var is_looking_at := false
-var current_words: Array[Dictionary] = []  # [{text: "", category: "", key: ""}]
+var current_words: Array = []  # [{text: "", category: "", key: ""}]
 var hovering_word_index := -1
 var is_animating := false
 var full_text := ""
@@ -44,10 +44,10 @@ func _ready() -> void:
 
 	visible = false
 
-func show_dialogue(text: String, word_mappings: Array[Dictionary] = []) -> void:
+func show_dialogue(text: String, word_mappings: Array = []) -> void:
 	"""
 	Muestra el diálogo con palabras clickeables y animación typewriter
-	word_mappings: [{word: "りんご", category: "food", key: "apple"}, ...]
+	word_mappings: Array[Dictionary] con [{word: "りんご", category: "food", key: "apple"}, ...]
 	"""
 	current_words = word_mappings
 	visible = true
@@ -104,7 +104,7 @@ func hide_bubble() -> void:
 	visible = false
 	bubble_closed.emit()
 
-func _format_text_with_links(text: String, word_mappings: Array[Dictionary]) -> String:
+func _format_text_with_links(text: String, word_mappings: Array) -> String:
 	"""Convierte palabras en links clickeables"""
 	var result = text
 
