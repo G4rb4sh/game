@@ -34,7 +34,7 @@ func _ready() -> void:
 	sprite.texture = sub_viewport.get_texture()
 	sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	sprite.shaded = false
-	sprite.pixel_size = 0.006  # Tamaño ajustado
+	sprite.pixel_size = 0.004  # Tamaño reducido
 
 	# Configurar el texto
 	dialogue_text.bbcode_enabled = true
@@ -144,6 +144,10 @@ func _on_meta_hover_ended(meta) -> void:
 
 func set_looking_at(looking: bool) -> void:
 	"""Cambia el estilo cuando el jugador mira la burbuja"""
+	# Evitar múltiples llamadas innecesarias (previene stack overflow)
+	if is_looking_at == looking:
+		return
+
 	is_looking_at = looking
 
 	# Crear animación de escala suave
