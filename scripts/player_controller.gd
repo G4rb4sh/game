@@ -124,14 +124,16 @@ func _check_dialogue_bubble() -> void:
 
 func _find_dialogue_bubble(node: Node) -> DialogueBubble3D:
 	"""Busca un DialogueBubble3D en el árbol del nodo"""
+	# Si es un Area3D, buscar en el padre
+	if node is Area3D:
+		var parent = node.get_parent()
+		if parent is DialogueBubble3D:
+			return parent
+
+	# Buscar recursivamente hacia arriba
 	var current = node
 	while current:
 		if current is DialogueBubble3D:
 			return current
-		# Buscar en hermanos y padre
-		if current.get_parent():
-			for sibling in current.get_parent().get_children():
-				if sibling is DialogueBubble3D:
-					return sibling
 		current = current.get_parent()
 	return null
